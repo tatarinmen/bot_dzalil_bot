@@ -6,14 +6,15 @@ age = 0;
 @bot.message_handler(content_types=['text'])
 def start(message):
     if message.text == '/start':
-        bot.send_message(message.from_user.id, "Здравствуйте, мой дорогой друг, как тебя зовут?");
+        bot.send_message(message.from_user.id, "Здравствуйте, мой дорогой друг, как Вас зовут?");
         bot.register_next_step_handler(message, get_name);
     else:
         bot.send_message(message.from_user.id, 'Не понимаю Вас. Напишите /start');
 
 def get_name(message):
+    global name
     name = message.text;
-    bot.send_message(message.from_user.id, f'{name}, Введите свой возраст?');
+    bot.send_message(message.from_user.id, f'{name}, введите свой возраст?');
     bot.register_next_step_handler(message, get_age);
 
 def get_age(message):
@@ -24,7 +25,7 @@ def get_age(message):
              b=2024-age
         except Exception:
              bot.send_message(message.from_user.id, 'Введите цифры');
-    bot.send_message(message.from_user.id, f'{name} ты родился в {b} году')    
+    bot.send_message(message.from_user.id, f'{name}, Вы родились в {b} году')    
 
         
 bot.polling(none_stop=True,interval=0)
